@@ -1,0 +1,4 @@
+charger_id,charger_name,site_id,power_kw,connector_type,status,installation_date
+CHR-01,Carregador #1,SITE-SP-01,22,CCS2,online,2024-06-01
+CHR-02,Carregador #2,SITE-SP-01,22,CCS2,online,2024-06-01
+CHR-03,Carregador #3,SITE-SP-01,11,Type2,online,2024-09-15

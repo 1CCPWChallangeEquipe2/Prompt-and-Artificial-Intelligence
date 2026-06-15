@@ -1,0 +1,100 @@
+======================================================================
+  MODELO DE TESTE — ChargeGrid Intelligence · Sprint 2
+======================================================================
+
+──────────────────────────────────────────────────────────────────────
+  TESTE 1
+  Pergunta: Quanto de energia consumi esse mês no total e por carregador?
+──────────────────────────────────────────────────────────────────────
+  [Orquestrador] Tipo identificado: consumo_geral
+
+  Resposta:
+
+    Você consumiu um total de 88.82 kWh de energia no mês de junho de 2026. 
+    
+    Aqui está o consumo por carregador:
+    
+    - **CHR-01**: 30.62 kWh (5 sessões)
+    - **CHR-02**: 15.12 kWh (2 sessões)
+    - **CHR-03**: 43.08 kWh (4 sessões)
+    
+    Se precisar de mais informações ou análises específicas, estou à disposição!
+
+──────────────────────────────────────────────────────────────────────
+  TESTE 2
+  Pergunta: Tive algum pico de energia essa semana?
+──────────────────────────────────────────────────────────────────────
+  [Orquestrador] Tipo identificado: picos_energia
+
+  Resposta:
+
+    Não, não houve picos de energia esta semana. 
+    
+    - A maior carga observada foi de 31.21 kW, mas não foram registrados picos, conforme indicado nos dados.
+    - A carga média foi de 6.7 kW, bem abaixo do limite de 60 kW.
+    
+    Recomendação: Continue monitorando o consumo e a carga para garantir que não haja surpresas em períodos de maior demanda.
+
+──────────────────────────────────────────────────────────────────────
+  TESTE 3
+  Pergunta: Qual foi a pessoa que mais consumiu energia este mês?
+──────────────────────────────────────────────────────────────────────
+  [Orquestrador] Tipo identificado: usuario_top
+
+  Resposta:
+
+    A pessoa que mais consumiu energia este mês foi Beatriz Costa, com um total de 33,87 kWh em 4 sessões.
+    
+    Se precisar de mais informações sobre o consumo ou outros usuários, estou à disposição!
+
+──────────────────────────────────────────────────────────────────────
+  TESTE 4
+  Pergunta: Baseado no meu histórico, qual modelo de cobrança seria mais vantajoso para mim?
+──────────────────────────────────────────────────────────────────────
+  [Orquestrador] Tipo identificado: recomendacao_cobranca
+
+  Resposta:
+
+    O modelo de cobrança mais vantajoso para você é a **cobrança por sessão**. 
+    
+    ### Justificativa:
+    - **Média de energia**: 8.07 kWh por sessão.
+    - **Média de duração**: 39.27 minutos.
+    - **Ticket médio**: R$ 15.25.
+    
+    Esse modelo é recomendado porque permite que você cobre um valor fixo por cada sessão de carregamento, o que pode ser mais atrativo para os usuários e simplifica o processo de cobrança.
+    
+    ### Insight adicional:
+    Com a cobrança por sessão, você pode aumentar a previsibilidade da receita e melhorar a experiência do usuário, já que eles saberão exatamente quanto pagarão por cada uso do eletroposto. Considere monitorar a aceitação dos usuários a esse modelo e ajustar conforme necessário.
+
+──────────────────────────────────────────────────────────────────────
+  TESTE 5
+  Pergunta: Qual é a previsão de uso para amanhã?
+──────────────────────────────────────────────────────────────────────
+  [Orquestrador] Tipo identificado: previsao_uso
+
+  Resposta:
+
+    A previsão de uso para amanhã é de **2 sessões**.
+    
+    ### Detalhes:
+    - **Média diária de sessões**: 2.2
+    - **Previsão de sessões amanhã**: 2
+    
+    ### Insights:
+    A previsão de 2 sessões está alinhada com a média diária, o que indica uma expectativa estável de uso. Fique atento aos horários de pico, especialmente entre 18h e 19h, onde já foram registradas 3 e 2 sessões, respectivamente. Isso pode ajudar na gestão do carregamento e na otimização da energia.
+
+======================================================================
+  Testes concluídos.
+======================================================================
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Considerações gerais
+
+No geral, os modelos apresentaram um desempenho muito bom nos testes realizados. O modelo principal conseguiu acessar corretamente as bases de dados de teste, chamar as funções adequadas e responder dentro do escopo esperado, utilizando os dados de forma coerente e consistente com cada pergunta. Ainda assim, é possível perceber que o sistema precisa de refinamento, principalmente porque os dados disponíveis ainda são reduzidos e, em alguns casos, o agente depende de apoio para entregar respostas mais completas e robustas.
+
+Além disso, o agente de suporte também se comportou corretamente, identificando e chamando sempre as funções apropriadas para cada tipo de solicitação. Isso mostra que a etapa de orquestração está funcionando de maneira satisfatória.
+
+Como adendo ao Teste 5, a resposta também foi adequada, pois ainda não existe um modelo de previsão implementado nem dados suficientes para esse tipo de análise. Assim, o agente agiu corretamente ao retornar uma previsão compatível com a limitação atual do sistema.
+

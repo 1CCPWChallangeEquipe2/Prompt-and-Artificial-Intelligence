@@ -1,0 +1,6 @@
+user_id,user_name,user_type,company,vehicle_model,profile_cluster,created_at
+USR-0001,Carlos Souza,app_driver,,BYD Seal,app,2025-01-10
+USR-0023,Ana Lima,corporate,TechCorp,Volvo XC40 Recharge,frotista,2025-03-22
+USR-0047,Inaldo Freitas,app_driver,,Fiat 500e,app,2025-02-05
+USR-0088,Beatriz Costa,casual,,Renault Kwid E,esporadico,2026-01-18
+USR-0102,Pedro Alves,corporate,LogiStar,Chevrolet Bolt,frotista,2025-11-30
