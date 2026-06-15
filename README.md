@@ -341,4 +341,158 @@ df_chargers
 
 ---
 
-* Sprint 1 — EV Challenge 2026 · GoodWe × FIAP
+## Primeiro Modelo do Sistema · Sprint 2 · EV Challenge 2026 · GoodWe × FIAP
+
+---
+
+
+## 9. ESTRUTURA DO PROJETO
+
+```
+sistema/
+├── chargegrid_chatbot.ipynb       # Notebook principal com o agente
+├── requirements.txt               # Dependências do projeto
+├── .env                           # Variáveis de ambiente (não versionar)
+├── dados/
+│   ├── users.csv
+│   ├── chargers.csv
+│   ├── sessions.csv
+│   └── energy_hourly.csv
+├── gerador_dados/
+│   └── gerador_de_dados_sprint2.py  # Script para gerar CSVs mockados
+└── testes/
+    ├── testes_perguntas.py          # Testes automatizados
+    └── resultados.txt               # Saída dos testes
+
+```
+
+---
+
+## 10. DEPENDÊNCIAS
+
+```txt
+openai==2.41.1
+pandas==3.0.3
+numpy==2.4.6
+python-dotenv==1.2.2
+```
+
+Instale tudo com:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 11. VARIÁVEIS DE AMBIENTE
+
+Crie um arquivo `.env` na raiz do projeto (mesma pasta do notebook):
+
+```env
+OPENAI_API_KEY=sua_chave_aqui
+```
+
+> A chave é carregada automaticamente via `python-dotenv` na inicialização do notebook. Sem ela, as chamadas à API da OpenAI falharão.
+
+---
+
+## 12. INSTRUÇÕES DE EXECUÇÃO
+
+**1. Clone o repositório e entre na pasta:**
+```bash
+cd sistema
+```
+
+**2. Instale as dependências:**
+```bash
+pip install -r requirements.txt
+```
+
+**3. Configure o `.env`** com sua chave da OpenAI (ver seção acima).
+
+**4. (Opcional) Gere novos dados mockados:**
+```bash
+python gerador_dados/gerador_de_dados_sprint2.py
+```
+Isso recria os CSVs na pasta `dados/` com volume e período configuráveis.
+
+**5. Abra e execute o notebook:**
+```bash
+jupyter notebook chargegrid_chatbot.ipynb
+```
+Execute todas as células em ordem. A última célula inicia o chatbot no terminal interativo.
+
+---
+
+## 13. EXEMPLOS DE USO
+
+As perguntas abaixo foram testadas contra os dados mockados da Sprint 2:
+
+**Consumo por carregador**
+> "Quanto de energia consumi esse mês no total e por carregador?"
+
+```
+[Orquestrador] Tipo identificado: consumo_geral
+
+Você consumiu um total de 88.82 kWh em junho de 2026.
+
+Por carregador:
+- CHR-01: 30.62 kWh (5 sessões)
+- CHR-02: 15.12 kWh (2 sessões)
+- CHR-03: 43.08 kWh (4 sessões)
+```
+
+**Picos de energia**
+> "Tive algum pico de energia essa semana?"
+
+```
+[Orquestrador] Tipo identificado: picos_energia
+
+Não houve picos esta semana.
+A maior carga registrada foi 31.21 kW — bem abaixo do limite de 60 kW.
+```
+
+**Usuário com maior consumo**
+> "Qual foi a pessoa que mais consumiu energia este mês?"
+
+```
+[Orquestrador] Tipo identificado: usuario_top
+
+Beatriz Costa liderou o consumo com 33.87 kWh distribuídos em 4 sessões.
+```
+
+---
+
+## 14. VÍDEO EXPLICATIVO
+
+> 📹 **[Assista à demonstração do projeto aqui](LINK_DO_VIDEO)**
+
+O vídeo apresenta o funcionamento do agente na prática, cobrindo o fluxo de classificação de intenções pelo Orquestrador, a injeção de dados no prompt e as respostas geradas em linguagem natural.
+
+---
+
+## 15. EVOLUÇÃO DO PROMPT PRINCIPAL
+
+Entre a Sprint 1 e a Sprint 2, o `SYSTEM_AGENTE_PRINCIPAL` passou por uma revisão com foco em simplicidade e precisão.
+
+**O que mudou:**
+
+- **Enxugamento geral** — o prompt original era mais extenso e descritivo. Na Sprint 2 ele foi compactado, eliminando redundâncias e mantendo apenas o essencial para guiar o modelo.
+- **Regras mais diretas** — seções longas de explicação foram substituídas por listas curtas de regras objetivas (ex: "Nunca invente métricas", "Use apenas os dados do contexto").
+- **Padrões de resposta por categoria** — foi adicionada uma seção de padrões explícitos por tipo de pergunta (consumo, pico, usuário, cobrança, etc.), garantindo consistência nas saídas sem deixar o modelo livre para inventar estruturas.
+- **Adição do escopo GoodWe** — a Sprint 2 incluiu o tipo de intenção `goodwe`, permitindo que o agente responda perguntas institucionais sobre a empresa parceira.
+- **Remoção de exemplos embutidos** — os exemplos de perguntas e respostas esperadas saíram do system prompt e migraram para o Orquestrador, que os usa exclusivamente para classificação de intenção.
+
+O resultado é um prompt mais leve e direto, que reduz tokens por chamada e mantém o comportamento esperado com mais consistência.
+
+---
+
+## 16. ARQUITETURA DO AGENTE
+
+O sistema opera com dois agentes encadeados:
+
+1. **Orquestrador** — classifica a pergunta do usuário em um dos 10 tipos de intenção usando `gpt-4o-mini` e retorna um JSON com o campo `tipo`.
+2. **Agente Principal** — recebe a pergunta, os dados consultados nos DataFrames e o histórico da conversa, e gera a resposta em linguagem natural via `gpt-4o-mini`.
+
+O histórico de mensagens é mantido em memória durante a sessão, permitindo perguntas de acompanhamento contextuais.
