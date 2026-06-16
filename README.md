@@ -466,7 +466,7 @@ Beatriz Costa liderou o consumo com 33.87 kWh distribuídos em 4 sessões.
 
 ## 14. VÍDEO EXPLICATIVO
 
-> 📹 **[Assista à demonstração do projeto aqui](LINK_DO_VIDEO)**
+> 📹 **[Assista à demonstração do projeto aqui](https://youtu.be/bmxyMIvgkjc)**
 
 O vídeo apresenta o funcionamento do agente na prática, cobrindo o fluxo de classificação de intenções pelo Orquestrador, a injeção de dados no prompt e as respostas geradas em linguagem natural.
 
