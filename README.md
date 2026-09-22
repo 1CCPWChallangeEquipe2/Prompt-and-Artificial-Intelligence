@@ -1,5 +1,5 @@
 # ChargeGrid Intelligence — Chatbot de Gestão Operacional
-## Base Teórica · Sprint 1 · EV Challenge 2026 · GoodWe × FIAP
+## Challenge 2026 · GoodWe × FIAP
 
 ---
 
